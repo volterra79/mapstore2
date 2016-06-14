@@ -100,9 +100,17 @@ const LeafletLayer = React.createClass({
     updateLayer(newProps, oldProps) {
         Layers.updateLayer(newProps.type, this.layer, newProps.options, oldProps.options);
     },
+    centerMapToLayer(layer) {
+        let map = this.props.map;
+        map.fitBounds(layer.getBounds());
+    },
     addLayer() {
         if (this.isValid()) {
             this.props.map.addLayer(this.layer);
+            //call a center map to uploaded layer
+            if (this.props.type == 'vector') {
+                this.centerMapToLayer(this.layer);
+            }
         }
     },
     removeLayer() {

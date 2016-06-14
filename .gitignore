@@ -9,3 +9,4 @@ web/client/libs/Cesium/
 web/cesium.zip
 web/.classpath
 web/.project
+.idea/

@@ -109,9 +109,16 @@ const OpenlayersLayer = React.createClass({
             }
         }
     },
+    centerMapToLayer(layer) {
+        this.props.map.getView().fit(layer.getSource().getExtent(), this.props.map.getSize());
+    },
     addLayer(options) {
         if (this.isValid()) {
             this.props.map.addLayer(this.layer);
+            //call a center map to uploaded layer
+            if (this.props.type == 'vector') {
+                this.centerMapToLayer(this.layer);
+            }
             this.layer.getSource().on('tileloadstart', () => {
                 if (this.tilestoload === 0) {
                     this.props.onLayerLoading(options.id);
